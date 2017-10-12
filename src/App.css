@@ -2,13 +2,12 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
 
 .App-header {
   text-align: center;
-  background-color: #222;
+  background-color: #444;
   height: 150px;
   padding: 20px;
   color: white;
@@ -22,6 +21,54 @@
   font-size: large;
 }
 
+.ToDo {
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  align-items: center;
+}
+
+.ToDoList {
+  width: 50vw;
+}
+
+.ToDoList ul {
+  padding: 0px;
+}
+
+section.item {
+  padding: 10px;
+  margin: 0px;
+}
+
+section.item h3 {
+  font-size: large;
+}
+
+section.item p {
+  margin-left: 10px;
+  font-size: medium;
+}
+
+section.item label {
+  font-size: small;
+}
+
+.item h1 {
+  margin: 0 0 0 0;
+}
+
+.ToDoCreate {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.ToDoCreate * {
+  margin-bottom: 10px;
+}
+
+
 .item {
   background: lightgoldenrodyellow;
   border: 1px solid lightgray;
@@ -30,6 +77,14 @@
 
 li {
   list-style-type: none;
+}
+
+textarea {
+  resize: none;
+}
+
+footer {
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
