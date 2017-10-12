@@ -45,7 +45,7 @@ class ToDoList extends Component {
         super(props);
     }
 
-    public static propTypes = {
+    static propTypes = {
         items: PropTypes.array.isRequired,
         checked: PropTypes.func.isRequired,
         deleteItem: PropTypes.func.isRequired
