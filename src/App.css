@@ -68,6 +68,10 @@ section.item label {
   margin-bottom: 10px;
 }
 
+.ToDoCreate input.empty {
+  border: firebrick dashed 1px;
+}
+
 .item {
   background: lightgoldenrodyellow;
   border: 1px solid lightgray;

@@ -95,6 +95,7 @@ class ToDo extends Component {
                 <div className="ToDoCreate">
                     <input type="text"
                            placeholder="Headline"
+                           className={ !this.state.currentHeadline.length ? "empty" : ""}
                            value={ this.state.currentHeadline }
                            name="headline"
                            onChange={ this.onChange }/>
@@ -104,7 +105,7 @@ class ToDo extends Component {
                         name="description"
                         rows="10"
                         onChange={ this.onChange }/>
-                    <button onClick={ this.handleCreate }>Neu</button>
+                    <button disabled={ !this.state.currentHeadline.length } onClick={ this.handleCreate }>Neu</button>
                 </div>
                 <ToDoList checked={ this.itemChecked }
                           deleteItem={ this.itemDelete }
