@@ -33,12 +33,12 @@
 }
 
 .ToDoList ul {
-  padding: 0px;
+  padding: 0;
 }
 
 section.item {
   padding: 10px;
-  margin: 0px;
+  margin: 0;
 }
 
 section.item h3 {
@@ -68,11 +68,14 @@ section.item label {
   margin-bottom: 10px;
 }
 
-
 .item {
   background: lightgoldenrodyellow;
   border: 1px solid lightgray;
   margin: 2px;
+}
+
+section.done {
+    background: green;
 }
 
 li {

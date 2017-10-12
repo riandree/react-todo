@@ -14,10 +14,10 @@ const ToDoItem = (props) => {
     const onChecked = () => props.checked(props.id);
     const onDelete = () => props.deleteItem(props.id);
     return (
-        <section className="item">
+        <section className={ props.isChecked ? "item done" : "item"} >
             <h3>{ props.headline }</h3>
             <p>{ props.description }</p>
-            <label for={props.id}>Done</label>
+            <label htmlFor={props.id}>Done</label>
             <input id={props.id}
                    type="checkbox"
                    onClick={ onChecked }
@@ -45,11 +45,11 @@ class ToDoList extends Component {
         super(props);
     }
 
-    static propTypes = {
+    public static propTypes = {
         items: PropTypes.array.isRequired,
         checked: PropTypes.func.isRequired,
         deleteItem: PropTypes.func.isRequired
-    }
+    };
 
     render() {
         const items = this.props.items
@@ -72,7 +72,7 @@ class ToDoList extends Component {
 
 class ToDo extends Component {
 
-    constructor(props) {
+    constructor() {
         super();
         this.state = {
             currentHeadline: "",
@@ -121,7 +121,7 @@ class ToDo extends Component {
                 currentDescription: ""
             }
         ));
-    }
+    };
 
     onChange = (event) => {
         switch (event.target.name) {
@@ -134,15 +134,19 @@ class ToDo extends Component {
             default :
                 console.warn(`unknown target-name "${event.target.name}"`);
         }
-    }
+    };
 
     itemDelete = (id) => {
-        this.setState((prev) => {
-            return {
-              items : prev.items.filter(item => item.id!==id)
-            };
-        });
-    }
+        // ToDo: this is really really ugly ... use a proper dialog instead
+        const item2Delete = this.state.items.find(item => item.id === id);
+        if (item2Delete && window.confirm(`really delete item "${item2Delete.headline}" ?`)) {
+            this.setState((prev) => {
+                return {
+                    items: prev.items.filter(item => item.id !== id)
+                };
+            });
+        }
+    };
 
     itemChecked = (id) => {
         const flipState = (item) => {
