@@ -12,12 +12,21 @@ const createItem = (headline, description) => ({
 
 const ToDoItem = (props) => {
     const onChecked = () => props.checked(props.id);
+    const onDelete = () => props.deleteItem(props.id);
     return (
-        <div className="item" onClick={ onChecked }>
-            <p>{ props.headline }</p>
-            <span>{ props.description }</span>
-            <input type="checkbox" checked={ props.isChecked } readOnly/>
-        </div>
+        <section className="item">
+            <h3>{ props.headline }</h3>
+            <p>{ props.description }</p>
+            <label for={props.id}>Done</label>
+            <input id={props.id}
+                   type="checkbox"
+                   onClick={ onChecked }
+                   checked={ props.isChecked }
+                   readOnly/>
+            {
+                props.isChecked && <button onClick={ onDelete }>delete item</button>
+            }
+        </section>
     );
 };
 
@@ -26,6 +35,7 @@ ToDoItem.propTypes = {
     headline: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     checked: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
     isChecked: PropTypes.bool
 };
 
@@ -37,7 +47,8 @@ class ToDoList extends Component {
 
     static propTypes = {
         items: PropTypes.array.isRequired,
-        checked: PropTypes.func.isRequired
+        checked: PropTypes.func.isRequired,
+        deleteItem: PropTypes.func.isRequired
     }
 
     render() {
@@ -45,11 +56,12 @@ class ToDoList extends Component {
             .map((item) => (<li key={ item.id }><ToDoItem
                 id={ item.id }
                 checked={ this.props.checked }
+                deleteItem={ this.props.deleteItem }
                 headline={ item.headline }
                 isChecked={ item.checked }
                 description={ item.description}/></li>));
         return (
-            <div>
+            <div className="ToDoList">
                 <ul>
                     { items }
                 </ul>
@@ -72,32 +84,31 @@ class ToDo extends Component {
     componentDidMount() {
         this.setState((prevState) => (
             {
-                items: [
-                    createItem("1st", "lorem ipsum"),
-                    createItem("2nd", "dolor sit"),
-                    ...prevState.items
-                ]
+                items: []
             }
         ));
     }
 
     render() {
         return (
-            <div>
-                <div>
+            <div className="ToDo">
+                <div className="ToDoCreate">
                     <input type="text"
                            placeholder="Headline"
                            value={ this.state.currentHeadline }
                            name="headline"
                            onChange={ this.onChange }/>
-                    <input type="text"
-                           placeholder="Description"
-                           value={ this.state.currentDescription }
-                           name="description"
-                           onChange={ this.onChange }/>
+                    <textarea
+                        placeholder="Description"
+                        value={ this.state.currentDescription }
+                        name="description"
+                        rows="10"
+                        onChange={ this.onChange }/>
                     <button onClick={ this.handleCreate }>Neu</button>
                 </div>
-                <ToDoList checked={ this.itemChecked } items={ this.state.items }/>
+                <ToDoList checked={ this.itemChecked }
+                          deleteItem={ this.itemDelete }
+                          items={ this.state.items }/>
             </div>
         );
     }
@@ -106,8 +117,8 @@ class ToDo extends Component {
         this.setState((prev) => (
             {
                 items: [createItem(this.state.currentHeadline, this.state.currentDescription), ...prev.items],
-                currentHeadline : "",
-                currentDescription : ""
+                currentHeadline: "",
+                currentDescription: ""
             }
         ));
     }
@@ -123,6 +134,14 @@ class ToDo extends Component {
             default :
                 console.warn(`unknown target-name "${event.target.name}"`);
         }
+    }
+
+    itemDelete = (id) => {
+        this.setState((prev) => {
+            return {
+              items : prev.items.filter(item => item.id!==id)
+            };
+        });
     }
 
     itemChecked = (id) => {
