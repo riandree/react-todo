@@ -6,7 +6,6 @@ export const Actions = {
 };
 
 export const createToDo = (headline, description) => {
-    console.log("creating "+headline+" "+description);
     return {
         type : Actions.CREATE_TODO,
         payload : { headline, description : description || ""  }

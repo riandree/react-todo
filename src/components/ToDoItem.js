@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 export const ToDoItem = (props) => {
     const onChecked = () => props.checked(props.id);
     const onDelete = () => props.deleteItem(props.id);
-    console.log("ToDoItem Props "+JSON.stringify(props));
     return (
         <section className={ props.isChecked ? "item done" : "item"} >
             <h3>{ props.headline }</h3>

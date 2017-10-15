@@ -11,7 +11,6 @@ export class ToDoList extends Component {
     };
 
     render() {
-        console.log("list got "+JSON.stringify(this.props))
         const items = this.props.items
             .map((item) => (<li key={ item.id }><ToDoItem
                 id={ item.id }
