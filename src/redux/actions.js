@@ -5,19 +5,23 @@ export const Actions = {
   TOGGLE_TODO : "TOGGLE"
 };
 
-export const createToDo = (headline, description) => {
-    return {
+export default (todoDatabaseService) => ({
+
+   createToDo : (headline, description) => {
+      return {
         type : Actions.CREATE_TODO,
         payload : { headline, description : description || ""  }
-    };
-};
+      };
+   },
 
-export const deleteToDo = (id) => ({
-    type : Actions.DELETE_TODO,
-    payload : { id }
-});
+   deleteToDo : (id) => ({
+      type : Actions.DELETE_TODO,
+      payload : { id }
+   }),
 
-export const toggleToDo = (id) => ({
-    type : Actions.TOGGLE_TODO,
-    payload : { id }
+   toggleToDo : (id) => ({
+      type : Actions.TOGGLE_TODO,
+      payload : { id }
+   })
+
 });

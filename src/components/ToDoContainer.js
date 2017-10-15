@@ -1,23 +1,28 @@
 import EditableToDoList from './EditableToDoList';
 import { connect } from 'react-redux';
-import { createToDo, deleteToDo, toggleToDo } from '../redux/actions';
+import React from 'react';
 
-const mapStateToProps = (state) => ({
-    items : state.items
-}); 
+export default function ToDoListContainer(props) {
 
-const mapDispatchToProps = (dispatch) => ({
-    doCreate : (headline,description) => {
-        dispatch(createToDo(headline,description))
-    },
-    doRemove : (id) => {
-        dispatch(deleteToDo(id));
-    },
-    doToggleItem : (id) => {
-        dispatch(toggleToDo(id));
-    }
-});
+   const actions = props.actions;
 
-const ToDoListContainer = connect(mapStateToProps,mapDispatchToProps)(EditableToDoList);
+   const mapStateToProps = (state) => ({
+      items : state.items
+   }); 
+
+   const mapDispatchToProps = (dispatch) => ({
+      doCreate : (headline,description) => {
+        dispatch(actions.createToDo(headline,description))
+      },
+      doRemove : (id) => {
+        dispatch(actions.deleteToDo(id));
+      },
+      doToggleItem : (id) => {
+        dispatch(actions.toggleToDo(id));
+      }
+   });
+
+   const ToDoWrapper=connect(mapStateToProps,mapDispatchToProps)(EditableToDoList);
   
-export default ToDoListContainer;
+   return <ToDoWrapper/>;
+};
