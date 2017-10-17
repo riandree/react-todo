@@ -15,14 +15,18 @@ export default (todoDatabaseService) => ({
       };
    },
 
-   deleteToDo : (id) => ({
-      type : Actions.DELETE_TODO,
-      payload : { id }
-   }),
+   deleteToDo : (id) => {
+      return {
+         type : Actions.DELETE_TODO,
+         payload : todoDatabaseService.removeToDo(id)
+                                      .then(() => todoDatabaseService.allToDos())
+      }
+  },
 
    toggleToDo : (id) => ({
       type : Actions.TOGGLE_TODO,
-      payload : { id }
+      payload : todoDatabaseService.toggleToDo(id)
+                                   .then(() => todoDatabaseService.allToDos())
    })
 
 });
