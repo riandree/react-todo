@@ -10,7 +10,8 @@ export default (todoDatabaseService) => ({
    createToDo : (headline, description) => {
       return {
         type : Actions.CREATE_TODO,
-        payload : { headline, description : description || ""  }
+        payload : todoDatabaseService.insertToDo(headline,description)
+                                     .then(() => todoDatabaseService.allToDos())
       };
    },
 

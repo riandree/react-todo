@@ -6,13 +6,13 @@ export default function ToDoListContainer(props) {
 
    const actions = props.actions;
 
-   const mapStateToProps = (state) => ({
-      items : state.items
-   }); 
+   const mapStateToProps = (state) => {
+      return  { items : state.items };
+   }; 
 
    const mapDispatchToProps = (dispatch) => ({
       doCreate : (headline,description) => {
-        dispatch(actions.createToDo(headline,description))
+        dispatch(actions.createToDo(headline,description));
       },
       doRemove : (id) => {
         dispatch(actions.deleteToDo(id));

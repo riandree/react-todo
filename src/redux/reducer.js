@@ -1,18 +1,5 @@
 import { Actions } from './actions';
 
-const initialState = {
-    items: []
-};
-
-const rndInt = () => Math.round(Math.random() * 100);
-const createID = () => [rndInt(), rndInt(), rndInt(), rndInt()].join("-");
-const createItem = (headline, description) => ({
-    id : createID(),
-    headline,
-    description,
-    checked : false
-});
-
 const removeItemById = (items, id) => {
    return items.filter(item => item.id !== id);
 }
@@ -29,12 +16,12 @@ const toggleItemById = (items, id) => {
    return items.map(flipState);
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state , action) => {
     switch (action.type) {
-        case Actions.CREATE_TODO :
+        case `${Actions.CREATE_TODO}_FULFILLED` :
             return {
                 ...state,
-                items : [createItem(action.payload.headline,action.payload.description), ...state.items]
+                items : action.payload
             };
         case Actions.DELETE_TODO :
             return {
