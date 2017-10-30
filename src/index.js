@@ -9,7 +9,7 @@ import App from './App';
 import actions from './redux/actions'
 import rootReducer from './redux/reducer';
 import createToDoDatabaseService from './services/TodoDatabaseService';
-//import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 // Create DB Wrapper around IndexDB for ToDo-Items 
 const db = new Dexie("ToDoDatabase"); 
@@ -37,4 +37,4 @@ function startApplication(databaseService) {
   });
 }
 
-//registerServiceWorker();
+registerServiceWorker();
