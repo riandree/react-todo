@@ -55,8 +55,11 @@
     "@storybook/addon-actions": "^3.2.12",
     "@storybook/addon-links": "^3.2.12",
     "@storybook/react": "^3.2.12",
+    "cross-env": "^5.1.0",
     "prettier": "^1.7.4",
-    "storybook-router": "^0.3.0"
+    "rimraf": "^2.6.2",
+    "storybook-router": "^0.3.0",
+    "webpack-clean-plugin": "^0.2.3"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -64,7 +67,8 @@
     "test": "node scripts/test.js --env=jsdom",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "format": "prettier --single-quote --trailing-comma all --write \"{src,__{tests,mocks}__}/**/*.{js,css}\""
+    "format": "prettier --single-quote --trailing-comma all --write \"{src,__{tests,mocks}__}/**/*.{js,css}\"",
+    "devbuild": "rimraf build && cross-env NODE_ENV=development webpack --config ./config/webpack.config.dev.js"
   },
   "jest": {
     "collectCoverageFrom": [
