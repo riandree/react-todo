@@ -225,7 +225,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
-      chunks : ['app']
+      excludeChunks : ['serviceworker']
     }),
     // Add module names to factory functions so they appear in browser profiler.
     new webpack.NamedModulesPlugin(),
@@ -250,7 +250,7 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.optimize.CommonsChunkPlugin({
-       names : ['app','serviceworker']    
+       names : ['serviceworker','app']    
     })
   ],
   // Some libraries import Node modules but don't use them in the browser.
