@@ -146,6 +146,7 @@ module.exports = {
           {
             test: /\.(js|jsx)$/,
             include: paths.appSrc,
+            exclude: paths.appServiceworker,
             loader: require.resolve('babel-loader'),
             options: {
               

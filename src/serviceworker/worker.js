@@ -1,1 +1,21 @@
-console.log("hello serviceworker");
+async function install() {
+    const cache = await caches.open("todo-v1");
+    return cache.addAll(['/','/manifest.json','/favicon.ico','/static/js/app.js','/static/media/todo.svg']);
+}
+
+async function respond({ request }) {
+    const cache = await caches.open("todo-v1");
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+        return cachedResponse;
+    } 
+    return fetch(request);
+}
+
+this.addEventListener('install', (evt) => {
+     evt.waitUntil(install());
+})
+
+this.addEventListener('fetch', (evt) => {
+    evt.respondWith(respond(evt));
+})
