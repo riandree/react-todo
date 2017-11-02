@@ -3,7 +3,6 @@
 import swURL from 'file-loader?name=[name].[ext]!./serviceworker/worker.js'
 
 export default function register() {
-  console.log("#1");
   if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
@@ -15,7 +14,6 @@ export default function register() {
     }
 
     window.addEventListener('load', () => {
-      console.log("registering "+swURL);
       registerValidSW(swURL);
     });
   }
