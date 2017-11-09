@@ -27,3 +27,7 @@ this.addEventListener('install', (evt) => {
 this.addEventListener('fetch', (evt) => {
     evt.respondWith(respond(evt));
 })
+
+this.addEventListener('message', ({ data }) => {
+    console.log("Worker received message payload "+JSON.stringify(data));
+})

@@ -8,7 +8,6 @@ function pushIfActive(msg) {
 }
 
 const registerListener = (listenerFct) => {
-    console.log("registering ...");
     if (listenerFct instanceof Function) {
         listeners.push(listenerFct);
     } else {
@@ -16,9 +15,9 @@ const registerListener = (listenerFct) => {
     }
 };
 
-const pushCreateEvent = () => {};
-const pushUpdateEvent = () => {};
-const pushDeleteEvent = () => {};
+const pushCreateEvent = (todoID) => pushIfActive({ ...todoID, action : "created" });
+const pushUpdateEvent = (todoID) => pushIfActive({ ...todoID, action : "updated" });
+const pushDeleteEvent = (todoID) => pushIfActive({ ...todoID, action : "deleted" });
 
 service.pushCreateEvent = pushCreateEvent;
 service.pushUpdateEvent = pushUpdateEvent;
