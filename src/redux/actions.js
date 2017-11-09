@@ -2,7 +2,8 @@
 export const Actions = {
   CREATE_TODO : "CREATE",
   DELETE_TODO : "DELETE",
-  TOGGLE_TODO : "TOGGLE"
+  TOGGLE_TODO : "TOGGLE",
+  REREAD_DB   : "REREAD"
 };
 
 export default (todoDatabaseService) => ({
@@ -27,6 +28,13 @@ export default (todoDatabaseService) => ({
       type : Actions.TOGGLE_TODO,
       payload : todoDatabaseService.toggleToDo(id)
                                    .then(() => todoDatabaseService.allToDos())
-   })
+   }),
+
+   recreateStateOnDBChange : () => {
+      return {
+        type : Actions.REREAD_DB,
+        payload : todoDatabaseService.allToDos()
+      }
+   }
 
 });

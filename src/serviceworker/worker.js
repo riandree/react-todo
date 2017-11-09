@@ -6,6 +6,14 @@ async function install() {
 async function respond({ request }) {
     const cache = await caches.open("todo-v1");
     const cachedResponse = await cache.match(request);
+
+    this.clients.matchAll().then((clientList) => {
+        clientList.forEach((client) => {
+            client.postMessage("a message from a serviceworker");
+            console.log("posted a message");
+        }); 
+    });
+
     if (cachedResponse) {
         return cachedResponse;
     } 
