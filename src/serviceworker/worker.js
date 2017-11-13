@@ -1,3 +1,5 @@
+this.importScripts("workerServices.js");
+
 async function install() {
     const cache = await caches.open("todo-v1");
     return cache.addAll(['/','/manifest.json','/favicon.ico','/static/js/app.js','/static/media/todo.svg']);

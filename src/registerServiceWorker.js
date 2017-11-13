@@ -1,6 +1,8 @@
 // This makes webpack load the service-worker-file without further touching it
 /* eslint import/no-webpack-loader-syntax: off */
 import swURL from 'file-loader?name=[name].[ext]!./serviceworker/worker.js'
+import swServices from 'file-loader?name=[name].[ext]!./serviceworker/workerServices.js'
+import mlabKey from 'file-loader?name=[name].[ext]!./serviceworker/mlab.key.js'
 
 export default function register() {
   if ('serviceWorker' in navigator) {
@@ -14,6 +16,9 @@ export default function register() {
     }
 
     window.addEventListener('load', () => {
+      // Do not remove reference to swURL and swServices since otherwise they are optimized away
+      // and the file-loader stops working here
+      console.log("Service-Worker Scripts "+swURL+" / "+swServices+" / "+mlabKey);
       registerValidSW(swURL);
     });
   }
