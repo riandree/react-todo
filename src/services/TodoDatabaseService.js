@@ -6,8 +6,9 @@ const createID = () => [rndInt(), rndInt(), rndInt(), rndInt()].join("-");
 const insert = async (db, headline,description) => {
     const id = createID(); 
     const todo2Add = {
-        id,
+        _id : id,
         createdAt : Date.now(),
+        state : "pending_insert",
         headline : headline,
         description : description || "",
         checked : false
@@ -21,16 +22,25 @@ const allToDos = (db) => {
 }
 
 const removeById = async (db,id) => {
-    await db.toDoStore.delete(id);
-    dbEventService.pushDeleteEvent({ id });
+    //await db.toDoStore.delete(id);
+    db.toDoStore.get(id)
+      .then((todo) => {
+        if (todo) {
+            return db.toDoStore.put({ ...todo, state : "pending_delete" })
+        }
+        return Promise.reject("not found");
+      })
+      .then(() => {
+        dbEventService.pushDeleteEvent({ id });
+      });
 }
 
 const toggleToDoById = async (db,id) => {
-    await db.toDoStore.where({ id : id }).modify((todo) => {
+    await db.toDoStore.where({ _id : id }).modify((todo) => {
         todo.checked = !todo.checked;
+        todo.state = "pending_update";
         return todo;
-    });
-    dbEventService.pushUpdateEvent({ id });
+    }).then(() => dbEventService.pushUpdateEvent({ id }));
 }
 
 const DatabaseServiceConstructor = (db) => {

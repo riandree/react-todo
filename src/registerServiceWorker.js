@@ -3,6 +3,7 @@
 import swURL from 'file-loader?name=[name].[ext]!./serviceworker/worker.js'
 import swServices from 'file-loader?name=[name].[ext]!./serviceworker/workerServices.js'
 import mlabKey from 'file-loader?name=[name].[ext]!./serviceworker/mlab.key.js'
+import dexie from 'file-loader?name=[name].[ext]!../node_modules/dexie/dist/dexie.js'
 
 export default function register() {
   if ('serviceWorker' in navigator) {
@@ -18,7 +19,7 @@ export default function register() {
     window.addEventListener('load', () => {
       // Do not remove reference to swURL and swServices since otherwise they are optimized away
       // and the file-loader stops working here
-      console.log("Service-Worker Scripts "+swURL+" / "+swServices+" / "+mlabKey);
+      console.log("Service-Worker Scripts "+swURL+" / "+swServices+" / "+mlabKey+" / "+dexie);
       registerValidSW(swURL);
     });
   }

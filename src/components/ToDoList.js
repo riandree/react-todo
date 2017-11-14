@@ -12,8 +12,8 @@ export class ToDoList extends Component {
 
     render() {
         const items = this.props.items
-            .map((item) => (<li key={ item.id }><ToDoItem
-                id={ item.id }
+            .map((item) => (<li key={ item._id }><ToDoItem
+                id={ item._id }
                 checked={ this.props.checked }
                 deleteItem={ this.props.deleteItem }
                 headline={ item.headline }

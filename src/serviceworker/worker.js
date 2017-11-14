@@ -1,3 +1,5 @@
+this.importScripts("dexie.js");
+this.importScripts("mlab.key.js");  // ToDo remove this
 this.importScripts("workerServices.js");
 
 async function install() {
@@ -30,6 +32,30 @@ this.addEventListener('fetch', (evt) => {
     evt.respondWith(respond(evt));
 })
 
-this.addEventListener('message', ({ data }) => {
-    console.log("Worker received message payload "+JSON.stringify(data));
-})
+// Create DB Wrapper around IndexDB for ToDo-Items 
+/* eslint no-undef: off */
+const db = new Dexie("ToDoDatabase"); 
+db.version(1).stores({
+    toDoStore: "_id,state"
+});
+db.open()
+  .then(() => {
+    const services = workerServices({ mlabKey : mlab_api_key, fetch , db });
+    services.fetchPending().then((pending) => {
+        console.log("pending ... "+ JSON.stringify(pending));
+    });
+
+    console.log("opened db ");
+    this.addEventListener('message', ({ data }) => {
+        console.log("Worker received message payload "+JSON.stringify(data));
+
+        services.fetchPending().then((pending) => {
+            console.log("pending : "+JSON.stringify(pending));
+            pending.forEach((p) => services.syncPending(p).catch(console.log));
+        });
+
+    })
+  }) 
+  .catch(function (e) {
+    console.error("Open failed: " + e);
+  });

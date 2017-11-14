@@ -15,7 +15,7 @@ import dbEventStoreService from './services/DBEventStoreService';
 // Create DB Wrapper around IndexDB for ToDo-Items 
 const db = new Dexie("ToDoDatabase"); 
 db.version(1).stores({
-    toDoStore: "id",
+    toDoStore: "_id,state",
 });
 console.log("open db")
 db.open()

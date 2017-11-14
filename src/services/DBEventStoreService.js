@@ -3,6 +3,16 @@ const listeners = [];
 
 function pushIfActive(msg) {
     if (navigator.serviceWorker.controller) {
+        console.log("pushIfActive xx");
+        console.log(navigator.serviceWorker.controller);
+        navigator.serviceWorker.ready.then(function(registration) {
+            console.log("would register now");
+            // registration.sync.register('outbox').then(function() {
+            //   // registration succeeded
+            // }, function() {
+            //   // registration failed
+            // });
+          });
         navigator.serviceWorker.controller.postMessage(msg);
     }
 }

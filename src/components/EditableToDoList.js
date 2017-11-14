@@ -11,7 +11,7 @@ class EditableToDoList extends Component {
             items : PropTypes.arrayOf(
                 PropTypes.shape(
                     {
-                        id: PropTypes.string.isRequired,
+                        _id: PropTypes.string.isRequired,
                         headline : PropTypes.string.isRequired,
                         description : PropTypes.string,
                         checked: PropTypes.bool.isRequired
