@@ -2,7 +2,7 @@ var nock = require('nock');
 var fetch = require('node-fetch');
 var workerServices = require('./workerServices');
 //var mlabKey = require('./mlab.key'); 
-
+  
 describe("Services for the Service-Worker", function() {
     const services=workerServices({
         mlabKey : "DummyKey",
