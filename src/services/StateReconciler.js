@@ -1,5 +1,3 @@
-const reconcilerCentral = {};
-
 const localReconciler = (localState) => {
     return {
         withCentral : (centralState) => {
